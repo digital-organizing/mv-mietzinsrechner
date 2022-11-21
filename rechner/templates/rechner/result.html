@@ -1,0 +1,16 @@
+{% extends 'rechner/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+    <h1>Hier kommt noch was...</h1>
+    <table>
+        {% for form in form_data %}
+            {% for key in form.items  %}
+                <tr>
+                    <td>{{ key.0 }}</td>
+                    <td>{{ key.1 }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+{% endblock %}
