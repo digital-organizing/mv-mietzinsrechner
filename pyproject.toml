@@ -4,7 +4,7 @@ version = "0.0.1"
 dependencies = [
     "django",
     "django-q",
-    "django-formtools",
+    "django-formtools<2.4",
     "celery[redis]",
     "djangorestframework",
     "django-celery-beat",

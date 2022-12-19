@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.utils.translation import gettext_lazy as _
 
-admin.site.site_header = 'digital/organizing Tools'
+admin.site.site_header = _('digital/organizing Tools')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

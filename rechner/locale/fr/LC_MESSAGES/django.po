@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-19 15:38+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: rechner/models.py:29
+msgid "Gemäss Rechner"
+msgstr ""
+
+#: rechner/models.py:30
+msgid "Pauschal"
+msgstr ""
+
+#: rechner/steps.py:14
+msgid "Senkung"
+msgstr ""
+
+#: rechner/steps.py:14
+msgid "Erhöhung"
+msgstr ""
+
+#: rechner/steps.py:26
+msgid "nicht exkludiert: Hauswart, Heizung, TV"
+msgstr ""
+
+#: rechner/steps.py:27
+msgid "alles exkludiert"
+msgstr ""
+
+#: rechner/steps.py:28
+msgid "alles exkludiert, Neubau"
+msgstr ""
+
+#: rechner/templates/rechner/wizard.html:21
+msgid "first step"
+msgstr ""
+
+#: rechner/templates/rechner/wizard.html:22
+msgid "prev step"
+msgstr ""
+
+#: rechner/templates/rechner/wizard.html:24
+msgid "submit"
+msgstr ""
