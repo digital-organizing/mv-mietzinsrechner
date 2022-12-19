@@ -39,5 +39,5 @@ class CommuneAdmin(admin.ModelAdmin):
 
 @admin.register(Section)
 class SectionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'commune')
-    search_fields = ('name', 'commune')
+    list_display = ('name', )
+    search_fields = ('name', )

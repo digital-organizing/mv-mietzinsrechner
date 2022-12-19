@@ -36,4 +36,4 @@ RUN python manage.py compilemessages && python manage.py collectstatic
 
 ENTRYPOINT ["/home/app/web/entrypoint.sh"]
 
-CMD uvicorn --host 0.0.0.0 --port 8000 --reload core.asgi:application 
+CMD uvicorn --host 0.0.0.0 --port 8000 core.asgi:application 

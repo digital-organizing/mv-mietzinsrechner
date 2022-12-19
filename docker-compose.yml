@@ -13,6 +13,11 @@ services:
       - DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$SQL_HOST/$POSTGRES_DB
     env_file:
       - ./.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`mv.dev.digitalorganizing.ch`)"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.services.web.loadbalancer.server.port=8000"
 
   redis:
     image: redis:alpine
@@ -24,3 +29,8 @@ volumes:
   postgres_data:
   static:
   media:
+
+networks:
+  web:
+    external: true
+
