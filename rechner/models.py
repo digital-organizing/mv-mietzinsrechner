@@ -1,6 +1,8 @@
-from django.db import models
+# models.py
 from django.contrib.auth import get_user_model
+from django.db import models
 from django.db.models.query import QuerySet
+from django.utils.translation import gettext as _
 
 # Create your models here.
 
@@ -15,6 +17,29 @@ class Section(models.Model):
     min_amount_for_dispute_reduction = models.FloatField()
 
     commune_set: QuerySet["Commune"]
+
+
+class Address(models.Model):
+    street = models.CharField(max_length=120)
+    zip_code = models.CharField(max_length=5)
+    city = models.CharField(max_length=120)
+
+
+KOSTENSTEIGERUNG = (
+    ('rechner', _("Gemäss Rechner")),
+    ('pauschal', _("Pauschal")),
+)
+
+
+class ArbitrationBoard(models.Model):
+    name = models.CharField(max_length=120)
+    section = models.ForeignKey(Section, models.CASCADE)
+    address = models.ForeignKey(Address, models.CASCADE)
+
+    allg_kostensteigerung_type = models.CharField(max_length=120, choices=KOSTENSTEIGERUNG)
+    allg_kostensteigerung_value = models.FloatField()
+
+    is_landloard_required = models.BooleanField(default=False)
 
 
 class Commune(models.Model):

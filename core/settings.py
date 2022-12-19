@@ -13,6 +13,13 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import environ
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+import django_stubs_ext
+
+django_stubs_ext.monkeypatch()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -36,6 +43,7 @@ ADMINS = [x.split(':') for x in env.list('DJANGO_ADMINS', default=[])]
 # Application definition
 
 INSTALLED_APPS = [
+    'rechner',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +52,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'import_export',
-    'rechner',
 ]
 
 MIDDLEWARE = [
@@ -163,9 +170,6 @@ EMAIL_CONFIG = env.email_url('EMAIL_URL', default='smtp://user@:password@localho
 
 vars().update(EMAIL_CONFIG)
 
-if not DEBUG:
-    EMAIL_BACKEND = 'django_q_email.backends.DjangoQBackend'
-
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='mail@localhost')
 
 EMAIL_USE_SSL = True
@@ -176,4 +180,35 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True
 
-SITE_TITLE = env('SITE_TITLE', default='Collect-Bar')
+SITE_TITLE = env('SITE_TITLE', default='Mietzinsrechner')
+
+SENTRY_DSN = env('SENTRY_DSN', default='')
+
+sentry_sdk.init(
+    dsn=SENTRY_DSN,
+    integrations=[
+        DjangoIntegration(),
+    ],
+    traces_sample_rate=1.0 if not DEBUG else 0.5,
+    send_default_pii=True,
+    environment="production" if not DEBUG else "development",
+)
+
+# Django-q config with redis
+Q_CLUSTER = {
+    'name': 'DjangQ',
+    'workers': 4,
+    'recycle': 500,
+    'timeout': 90,
+    'compress': True,
+    'save_limit': 250,
+    'queue_limit': 500,
+    'cpu_affinity': 1,
+    'label': 'Django Q',
+    'redis': {
+        'host': env('REDIS_HOST', default='redis'),
+        'port': env('REDIS_PORT', default=6379),
+        'db': 0,
+        'socket_timeout': 3,
+    },
+}

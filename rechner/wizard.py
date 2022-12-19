@@ -1,7 +1,14 @@
 from django.shortcuts import render
 from formtools.wizard.views import SessionWizardView
 
-from rechner.steps import CouncelForm, HasContractForm, HasRentChangedForm, KindOfChangeForm, KostensteigerungForm, RentInfoForm
+from rechner.steps import (
+    CouncelForm,
+    HasContractForm,
+    HasRentChangedForm,
+    KindOfChangeForm,
+    KostensteigerungForm,
+    RentInfoForm,
+)
 
 
 def show_rent_changed_form(wizard):
@@ -35,6 +42,11 @@ def show_kind_of_change_form(wizard):
 
 
 def show_member_form(wizard):
+    kind_of_change = wizard.get_cleaned_data_for_step(RentWizard.KIND_OF_CHANGE_FORM) or {}
+
+    if kind_of_change.get('kind') == 'erhöhung' and not kind_of_change.get('has_document'):
+        return True
+
     return False
 
 
@@ -62,6 +74,7 @@ class RentWizard(SessionWizardView):
         RENT_INFO_FORM: show_rent_info_form,
         KIND_OF_CHANGE_FORM: show_kind_of_change_form,
         KOSTEN_FORM: show_kostensteigerung_form,
+        COUNCEL_FORM: show_member_form,
     }
 
     def done(self, form_list, **kwargs):

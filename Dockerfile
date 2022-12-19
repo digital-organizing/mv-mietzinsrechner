@@ -12,7 +12,7 @@ RUN apt-get update && \
 # install dependencies
 RUN pip install --no-cache --upgrade pip
 COPY ./requirements.txt .
-RUN pip install --no-cache -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache pip install -r requirements.txt
 
 RUN useradd -ms /bin/bash app
 # create the appropriate directories
