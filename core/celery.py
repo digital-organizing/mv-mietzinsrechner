@@ -21,7 +21,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'update-db-every-day': {
-        'task': 'rechner.update_price_db',
+        'task': 'rechner.tasks.update_price_db',
         'schedule': crontab(hour='5', minute='0', day_of_week='*'),
         'args': (16, 16)
     },
