@@ -10,7 +10,6 @@ class BasicRentCalculator(forms.Form):
         attrs={'type': 'date'},
     ))
 
-    new_rent = forms.FloatField()
     new_date = forms.DateField(widget=forms.DateInput(
         format=('%Y-%m-%d'),
         attrs={'type': 'date'},

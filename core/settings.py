@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    "django_celery_results",
+    "django_celery_beat",
     'import_export',
 ]
 
@@ -211,3 +213,11 @@ Q_CLUSTER = {
         'socket_timeout': 3,
     },
 }
+
+CELERY_TIME_ZONE = TIME_ZONE
+
+CELERY_BROKER_URL = f"redis://{env('REDIS_HOST', default='redis')}:6379"
+REDIS_URL = CELERY_BROKER_URL
+
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_CACHE_BACKEND = "django-cache"
