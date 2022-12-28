@@ -10,7 +10,7 @@ anyio==3.6.2
     # via watchfiles
 arrow==1.2.3
     # via django-q
-asgiref==3.5.2
+asgiref==3.6.0
     # via django
 billiard==3.6.4.0
     # via celery
@@ -18,6 +18,8 @@ blessed==1.19.1
     # via django-q
 brotli==1.0.9
     # via whitenoise
+cachetools==5.2.0
+    # via mv-mietzinsrechner-api (pyproject.toml)
 celery[redis]==5.2.7
     # via
     #   django-celery-beat
@@ -90,6 +92,8 @@ kombu==5.2.4
     # via celery
 llvmlite==0.39.1
     # via numba
+lxml==4.9.2
+    # via mv-mietzinsrechner-api (pyproject.toml)
 markuppy==1.14
     # via tablib
 numba==0.56.4
@@ -98,10 +102,15 @@ numpy==1.23.5
     # via
     #   mv-mietzinsrechner-api (pyproject.toml)
     #   numba
+    #   pandas
 odfpy==1.4.1
     # via tablib
 openpyxl==3.0.10
-    # via tablib
+    # via
+    #   mv-mietzinsrechner-api (pyproject.toml)
+    #   tablib
+pandas==1.5.2
+    # via mv-mietzinsrechner-api (pyproject.toml)
 prompt-toolkit==3.0.36
     # via click-repl
 psutil==5.9.4
@@ -110,11 +119,12 @@ psycopg2-binary==2.9.5
     # via mv-mietzinsrechner-api (pyproject.toml)
 pymemcache==4.0.0
     # via mv-mietzinsrechner-api (pyproject.toml)
-python-crontab==2.6.0
+python-crontab==2.7.1
     # via django-celery-beat
 python-dateutil==2.8.2
     # via
     #   arrow
+    #   pandas
     #   python-crontab
 python-dotenv==0.21.0
     # via uvicorn
@@ -123,6 +133,7 @@ pytz==2022.7
     #   celery
     #   django-timezone-field
     #   djangorestframework
+    #   pandas
 pyyaml==6.0
     # via
     #   tablib

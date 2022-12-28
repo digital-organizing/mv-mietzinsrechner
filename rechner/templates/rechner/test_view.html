@@ -1,0 +1,51 @@
+{% extends "rechner/base.html" %}
+{% block head %}
+    <style>
+form {
+    display: flex;
+    flex-direction: column;
+}
+td {
+    font-family: monospace;
+    text-align: right;
+}
+
+th {
+    text-align: left;
+}
+    </style>
+{% endblock head %}
+{% block content %}
+    {% if result %}
+        <table>
+            <tr>
+                <th>Inflation</th>
+                <td>{{ result.inflation|floatformat:"2" }}%</td>
+                <th>0.4 * {{ result.inflation|floatformat:"2" }}% von {{ result.rent_initial|floatformat:"2" }}</th>
+                <td>{{ result.inflation_absolute|floatformat:"2" }}</td>
+            </tr>
+            <tr>
+                <th>Kostensteigerung</th>
+                <td>{{ result.cost_increase_percent|floatformat:"2" }}%</td>
+                <th></th>
+                <td>{{ result.cost_increase_absolute|floatformat:"2" }}</td>
+            </tr>
+            <tr>
+                <th>Veränderungssatz</th>
+                <td>{{ result.hypo_change|floatformat:"2" }}%</td>
+                <th></th>
+                <td>{{ result.hypo_change_absolute|floatformat:"2" }}</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ result.total_percent|floatformat:"2" }}%</td>
+                <th></th>
+                <td>{{ result.total_change_absolute|floatformat:"2" }}</td>
+            </tr>
+        </table>
+    {% endif %}
+    <form>
+        {{ form }}
+        <button type="submit">Absenden</button>
+    </form>
+{% endblock content %}

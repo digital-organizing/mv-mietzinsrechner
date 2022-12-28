@@ -10,9 +10,9 @@ anyio==3.6.2
     # via watchfiles
 arrow==1.2.3
     # via django-q
-asgiref==3.5.2
+asgiref==3.6.0
     # via django
-attrs==22.1.0
+attrs==22.2.0
     # via pytest
 bandit==1.7.4
     # via mv-mietzinsrechner-api (pyproject.toml)
@@ -22,6 +22,8 @@ blessed==1.19.1
     # via django-q
 brotli==1.0.9
     # via whitenoise
+cachetools==5.2.0
+    # via mv-mietzinsrechner-api (pyproject.toml)
 celery[redis]==5.2.7
     # via
     #   django-celery-beat
@@ -97,7 +99,7 @@ djangorestframework-stubs==1.8.0
     # via mv-mietzinsrechner-api (pyproject.toml)
 et-xmlfile==1.1.0
     # via openpyxl
-exceptiongroup==1.0.4
+exceptiongroup==1.1.0
     # via pytest
 gitdb==4.0.10
     # via gitpython
@@ -113,12 +115,14 @@ idna==3.4
     #   requests
 iniconfig==1.1.1
     # via pytest
-isort==5.11.3
+isort==5.11.4
     # via mv-mietzinsrechner-api (pyproject.toml)
 kombu==5.2.4
     # via celery
 llvmlite==0.39.1
     # via numba
+lxml==4.9.2
+    # via mv-mietzinsrechner-api (pyproject.toml)
 markuppy==1.14
     # via tablib
 mypy==0.991
@@ -134,14 +138,19 @@ numpy==1.23.5
     # via
     #   mv-mietzinsrechner-api (pyproject.toml)
     #   numba
+    #   pandas
 odfpy==1.4.1
     # via tablib
 openpyxl==3.0.10
-    # via tablib
+    # via
+    #   mv-mietzinsrechner-api (pyproject.toml)
+    #   tablib
 packaging==22.0
     # via
     #   pytest
     #   pytoolconfig
+pandas==1.5.2
+    # via mv-mietzinsrechner-api (pyproject.toml)
 pbr==5.11.0
     # via stevedore
 platformdirs==2.6.0
@@ -158,11 +167,12 @@ pymemcache==4.0.0
     # via mv-mietzinsrechner-api (pyproject.toml)
 pytest==7.2.0
     # via mv-mietzinsrechner-api (pyproject.toml)
-python-crontab==2.6.0
+python-crontab==2.7.1
     # via django-celery-beat
 python-dateutil==2.8.2
     # via
     #   arrow
+    #   pandas
     #   python-crontab
 python-dotenv==0.21.0
     # via uvicorn
@@ -173,6 +183,7 @@ pytz==2022.7
     #   celery
     #   django-timezone-field
     #   djangorestframework
+    #   pandas
 pyyaml==6.0
     # via
     #   bandit
@@ -213,6 +224,8 @@ tomli==2.0.1
     #   mypy
     #   pytest
     #   pytoolconfig
+types-cachetools==5.2.1
+    # via mv-mietzinsrechner-api (pyproject.toml)
 types-cryptography==3.3.23.2
     # via mv-mietzinsrechner-api (pyproject.toml)
 types-pytz==2022.7.0.0
@@ -221,7 +234,7 @@ types-pyyaml==6.0.12.2
     # via
     #   django-stubs
     #   djangorestframework-stubs
-types-requests==2.28.11.5
+types-requests==2.28.11.7
     # via djangorestframework-stubs
 types-urllib3==1.26.25.4
     # via types-requests

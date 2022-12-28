@@ -2,27 +2,32 @@
 name = "mv-mietzinsrechner-api"
 version = "0.0.1"
 dependencies = [
-    "django",
-    "django-q",
-    "django-formtools<2.4",
+    "cachetools",
     "celery[redis]",
-    "djangorestframework",
+    "django",
     "django-celery-beat",
     "django-celery-results",
-    "psycopg2-binary",
-    "whitenoise[brotli]",
     "django-environ",
-    "pymemcache",
-    "tablib",
+    "django-formtools<2.4",
     "django-import-export",
+    "django-model-utils",
+    "django-q",
     "django-sesame[ua]",
     "django-stubs-ext",
-    "numpy",
+    "djangorestframework",
+    "lxml",
     "numba",
-    "django-model-utils",
-    "sentry-sdk",
+    "numba",
+    "numpy",
+    "openpyxl",
+    "pandas",
     "psutil",
+    "psycopg2-binary",
+    "pymemcache",
+    "sentry-sdk",
+    "tablib",
     "uvicorn[standard]",
+    "whitenoise[brotli]",
 ]
 
 [build-system]
@@ -30,7 +35,20 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project.optional-dependencies]
-dev = ["pytest", "toml", "django-stubs-ext", "django-stubs", "mypy", "yapf", "isort", "bandit", "djangorestframework-stubs", "types-cryptography", "rope"]
+dev = [
+    "bandit",
+    "django-stubs",
+    "django-stubs-ext",
+    "djangorestframework-stubs",
+    "isort",
+    "mypy",
+    "pytest",
+    "rope",
+    "toml",
+    "types-cachetools",
+    "types-cryptography",
+    "yapf",
+]
 
 [tool.mypy]
 plugins = ["mypy_django_plugin.main"]

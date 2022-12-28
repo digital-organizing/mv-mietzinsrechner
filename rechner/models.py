@@ -25,8 +25,21 @@ class Address(models.Model):
     city = models.CharField(max_length=120)
 
 
+class Month(models.Model):
+    month = models.DateField()
+    base_index = models.FloatField()
+    hypo = models.FloatField()
+
+    class Meta:
+        ordering = ["month"]
+
+    def __str__(self) -> str:
+        return f"{self.month}: Hypo: {self.hypo}, Basis-Index: {self.base_index}"
+
+
 KOSTENSTEIGERUNG = (
     ('rechner', _("Gemäss Rechner")),
+    ('vorgabe', _("Vorgabe")),
     ('pauschal', _("Pauschal")),
 )
 

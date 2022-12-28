@@ -11,12 +11,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 '''
 
 from pathlib import Path
-import environ
-
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 
 import django_stubs_ext
+import environ
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 django_stubs_ext.monkeypatch()
 
