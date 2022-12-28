@@ -1,5 +1,11 @@
 {% extends "rechner/base.html" %}
 {% block head %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker.min.css"/>
     <style>
 form {
     display: flex;
@@ -10,42 +16,68 @@ td {
     text-align: right;
 }
 
-th {
-    text-align: left;
+thead > tr > th {
+    text-align: center;
 }
+
     </style>
 {% endblock head %}
 {% block content %}
-    {% if result %}
-        <table>
-            <tr>
-                <th>Inflation</th>
-                <td>{{ result.inflation|floatformat:"2" }}%</td>
-                <th>0.4 * {{ result.inflation|floatformat:"2" }}% von {{ result.rent_initial|floatformat:"2" }}</th>
-                <td>{{ result.inflation_absolute|floatformat:"2" }}</td>
-            </tr>
-            <tr>
-                <th>Kostensteigerung</th>
-                <td>{{ result.cost_increase_percent|floatformat:"2" }}%</td>
-                <th></th>
-                <td>{{ result.cost_increase_absolute|floatformat:"2" }}</td>
-            </tr>
-            <tr>
-                <th>Veränderungssatz</th>
-                <td>{{ result.hypo_change|floatformat:"2" }}%</td>
-                <th></th>
-                <td>{{ result.hypo_change_absolute|floatformat:"2" }}</td>
-            </tr>
-            <tr>
-                <th>Total</th>
-                <td>{{ result.total_percent|floatformat:"2" }}%</td>
-                <th></th>
-                <td>{{ result.total_change_absolute|floatformat:"2" }}</td>
-            </tr>
-        </table>
-    {% endif %}
-    <form>
-        {{ form }}
-        <button type="submit">Absenden</button>
-    </form>
+    <div class="container">
+        {% if result %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="2">Prozent</th>
+                        <th colspan="2">Absolut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Inflation</th>
+                        <td>{{ result.inflation|floatformat:"2" }}%</td>
+                        <td>0,4 * {{ result.inflation|floatformat:"2" }}% von {{ result.rent_initial|floatformat:"2" }} =</td>
+                        <td>{{ result.inflation_absolute|floatformat:"2" }}CHF</td>
+                    </tr>
+                    <tr>
+                        <th>Kostensteigerung</th>
+                        <td>{{ result.cost_increase_percent|floatformat:"2" }}%</td>
+                        <td>{{ result.cost_increase_percent|floatformat:"2" }}% von {{ result.rent_initial|floatformat:"2" }} =</td>
+                        <td>{{ result.cost_increase_absolute|floatformat:"2" }}CHF</td>
+                    </tr>
+                    <tr>
+                        <th>Veränderungssatz</th>
+                        <td>{{ result.hypo_change|floatformat:"2" }}%</td>
+                        <td>{{ result.hypo_change|floatformat:"2" }}% von {{ result.rent_initial|floatformat:"2" }} =</td>
+                        <td>{{ result.hypo_change_absolute|floatformat:"2" }}CHF</td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <td>{{ result.total_percent|floatformat:"2" }}%</td>
+                        <td>{{ result.total_percent|floatformat:"2" }}% von {{ result.rent_initial|floatformat:"2" }} =</td>
+                        <td>{{ result.total_change_absolute|floatformat:"2" }}CHF</td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %}
+        <form>
+            {{ form }}
+            <button type="submit">Absenden</button>
+        </form>
+    </div>
 {% endblock content %}
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker.min.js"></script>
+    <script>
+    const format = "dd.mm.yyyy";
+    const datepicker = (name) => {
+
+        const elem = document.querySelector(`input[name="${name}"]`);
+        const datepicker = new Datepicker(elem, {
+            format: format,
+        }); 
+    }
+    datepicker('start_date');
+    datepicker('new_date');
+    </script>
+{% endblock scripts %}
