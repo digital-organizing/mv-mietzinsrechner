@@ -23,7 +23,6 @@ def test_view(request):
 
     if form.is_valid():
         data = form.cleaned_data
-        # TODO: Calculate stuff ro return
         start_month = find_month(data['start_date'])
         new_month = find_month(data['new_date'])
 

@@ -1,5 +1,9 @@
 {% extends "rechner/base.html" %}
 {% block head %}
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+          rel="stylesheet"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
@@ -12,7 +16,7 @@ form {
     flex-direction: column;
 }
 td {
-    font-family: monospace;
+    font-family: 'Inter', sans-serif;
     text-align: right;
 }
 
@@ -28,31 +32,43 @@ thead > tr > th {
             <table class="table">
                 <thead>
                     <tr>
-                        <th colspan="2">Prozent</th>
+                        <th colspan="3">Prozent</th>
                         <th colspan="2">Absolut</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th>Inflation</th>
+                        <td>Von {{ result.base_old }} auf {{ result.base_new }}</td>
                         <td>{{ result.inflation|floatformat:"2" }}%</td>
                         <td>0,4 * {{ result.inflation|floatformat:"2" }}% von {{ result.rent_initial|floatformat:"2" }} =</td>
                         <td>{{ result.inflation_absolute|floatformat:"2" }}CHF</td>
                     </tr>
                     <tr>
                         <th>Kostensteigerung</th>
+                        <td>
+                            {% if result.cost_kind == 'pauschal' %}
+                                10% von {{ result.inflation|floatformat:"2" }}
+                            {% else %}
+                                {{ result.months }} Monate / 12 * {{ result.cost_value }}
+                            {% endif %}
+                        </td>
                         <td>{{ result.cost_increase_percent|floatformat:"2" }}%</td>
                         <td>{{ result.cost_increase_percent|floatformat:"2" }}% von {{ result.rent_initial|floatformat:"2" }} =</td>
                         <td>{{ result.cost_increase_absolute|floatformat:"2" }}CHF</td>
                     </tr>
                     <tr>
                         <th>Veränderungssatz</th>
+                        <td>Von {{ result.hypo_old }} auf {{ result.hypo_new }}</td>
                         <td>{{ result.hypo_change|floatformat:"2" }}%</td>
                         <td>{{ result.hypo_change|floatformat:"2" }}% von {{ result.rent_initial|floatformat:"2" }} =</td>
                         <td>{{ result.hypo_change_absolute|floatformat:"2" }}CHF</td>
                     </tr>
                     <tr>
                         <th>Total</th>
+                        <td>
+                            0,4 * {{ result.inflation|floatformat:"2" }} + {{ result.cost_increase_percent|floatformat:"2" }} + {{ result.hypo_change|floatformat:"2" }}
+                        </td>
                         <td>{{ result.total_percent|floatformat:"2" }}%</td>
                         <td>{{ result.total_percent|floatformat:"2" }}% von {{ result.rent_initial|floatformat:"2" }} =</td>
                         <td>{{ result.total_change_absolute|floatformat:"2" }}CHF</td>

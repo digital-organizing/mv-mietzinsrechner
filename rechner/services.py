@@ -1,6 +1,6 @@
 import datetime
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Tuple
 from django.core.exceptions import ObjectDoesNotExist
 
 from numba import float32, float64, jit
@@ -40,10 +40,11 @@ def calc_inflation(index_0, index_1) -> float:
     return (index_1 - index_0) / index_0 * 100
 
 
-def cost_increase(value: float, start_date: datetime.date, end_date: datetime.date) -> float:
+def cost_increase(value: float, start_date: datetime.date,
+                  end_date: datetime.date) -> Tuple[float, float]:
     """Calculate the cost increase between two dates"""
     months_between = (end_date.year - start_date.year) * 12 + end_date.month - start_date.month
-    return months_between / 12 * value
+    return months_between, months_between / 12 * value
 
 
 @jit(float32(float32, float32), nopython=True, cache=True)
@@ -83,7 +84,9 @@ def hypo_change_steps(hypo_old: float, hypo_new: float):
 class Change:
     rent_initial: float
     cost_kind: str
+    cost_value: float
     cost_increase_percent: float
+    months: float
     inflation: float
 
     hypo_old: float
@@ -91,6 +94,9 @@ class Change:
     hypo_change: float
 
     total_percent: float
+
+    base_old: float
+    base_new: float
 
     @property
     def inflation_absolute(self):
@@ -122,20 +128,25 @@ def total_reference_change(
 ) -> Change:
     if cost_kind == PAUSCHALE:
         cost = 0.1 * calc_inflation(index_old, index_new)
+        months = None
     else:
-        cost = cost_increase(value, start_date, end_date)
+        months, cost = cost_increase(value, start_date, end_date)
     inflation = calc_inflation(index_old, index_new)
     hypo_change = hypo_change_steps(hypo_old, hypo_new)
 
     return Change(
         cost_kind=cost_kind,
         cost_increase_percent=cost,
+        cost_value=value,
         inflation=inflation,
         hypo_old=hypo_old,
         hypo_new=hypo_new,
         hypo_change=hypo_change,
         total_percent=hypo_change + cost + 0.4 * inflation,
         rent_initial=rent_initial,
+        base_old=index_old,
+        base_new=index_new,
+        months=months or 0,
     )
 
 
